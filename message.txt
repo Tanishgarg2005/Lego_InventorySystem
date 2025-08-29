@@ -1,0 +1,3 @@
+now we need to add tailwind to it..
+
+and then npm i axios 
