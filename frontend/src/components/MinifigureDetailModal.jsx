@@ -42,6 +42,10 @@ function MinifigureDetailModal({ minifigure, onClose, onRefresh, onEdit }) {
           <div className="md:col-span-2 grid grid-cols-2 gap-x-8 gap-y-4">
             {renderDetail("Personal Number", minifigure.personalNumber)}
             {renderDetail("Theme", minifigure.theme?.name)}
+            
+            {/* --- NEW QUANTITY FIELD --- */}
+            {renderDetail("Quantity", minifigure.quantity)}
+            
             {renderDetail("BrickLink Number", minifigure.bricklinkNumber)}
             {renderDetail("Release Date", minifigure.releaseDate)}
             {renderDetail("Estimated Value", minifigure.estimatedValue, true)}

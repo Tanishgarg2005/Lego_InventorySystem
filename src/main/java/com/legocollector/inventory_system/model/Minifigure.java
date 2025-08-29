@@ -22,6 +22,7 @@ public class Minifigure {
     private BigDecimal shippingCost;
     private String notes;
     private String photoFilename;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "theme_id")
@@ -124,4 +125,11 @@ public class Minifigure {
     public void setTheme(Theme theme) {
         this.theme = theme;
     }
+    public int getQuantity() {
+    return quantity;
+}
+
+public void setQuantity(int quantity) {
+    this.quantity = quantity;
+}
 }

@@ -5,7 +5,7 @@ function AddMinifigureForm({ minifigureToEdit, onFormSubmit, onCancel }) {
   const [formData, setFormData] = useState({
     name: '', personalNumber: '', theme: { id: '' }, releaseDate: '',
     bricklinkNumber: '', estimatedValue: '', purchaseDate: '', purchasePrice: '',
-    shippingCost: '', notes: ''
+    shippingCost: '', notes: '', quantity: 1 // <-- Added quantity
   });
   const [photoFile, setPhotoFile] = useState(null);
   const [themes, setThemes] = useState([]);
@@ -28,6 +28,7 @@ function AddMinifigureForm({ minifigureToEdit, onFormSubmit, onCancel }) {
       const formattedData = {
         ...minifigureToEdit,
         theme: minifigureToEdit.theme || { id: '' },
+        quantity: minifigureToEdit.quantity || 1, // Ensure quantity is set
         releaseDate: minifigureToEdit.releaseDate ? new Date(minifigureToEdit.releaseDate).toISOString().split('T')[0] : '',
         purchaseDate: minifigureToEdit.purchaseDate ? new Date(minifigureToEdit.purchaseDate).toISOString().split('T')[0] : '',
       };
@@ -120,9 +121,16 @@ function AddMinifigureForm({ minifigureToEdit, onFormSubmit, onCancel }) {
               )}
             </div>
             <div><label className="block text-slate-600 text-sm font-semibold mb-1">Personal Number</label><input name="personalNumber" value={formData.personalNumber} onChange={handleChange} placeholder="e.g., SW001" required className={inputStyle} /></div>
+            
+            {/* --- NEW QUANTITY FIELD --- */}
+            <div>
+              <label className="block text-slate-600 text-sm font-semibold mb-1">Quantity</label>
+              <input name="quantity" type="number" value={formData.quantity} onChange={handleChange} className={inputStyle} />
+            </div>
+            
             <div><label className="block text-slate-600 text-sm font-semibold mb-1">Release Date</label><input name="releaseDate" value={formData.releaseDate} type="date" onChange={handleChange} className={inputStyle} /></div>
             <div><label className="block text-slate-600 text-sm font-semibold mb-1">BrickLink Number</label><input name="bricklinkNumber" value={formData.bricklinkNumber} onChange={handleChange} placeholder="e.g., sw0004" className={inputStyle} /></div>
-            <div><label className="block text-slate-600 text-sm font-semibold mb-1">Estimated Value ($)</label><input name="estimatedValue" value={formData.estimatedValue} type="number" step="0.01" onChange={handleChange} placeholder="e.g., 25.50" className={inputStyle} /></div>
+            <div className="md:col-span-2"><label className="block text-slate-600 text-sm font-semibold mb-1">Estimated Value ($)</label><input name="estimatedValue" value={formData.estimatedValue} type="number" step="0.01" onChange={handleChange} placeholder="e.g., 25.50" className={inputStyle} /></div>
           </div>
           <div>
             <label className="block text-slate-600 text-sm font-semibold mb-1">Photo</label>

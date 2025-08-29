@@ -11,7 +11,7 @@ function MinifigureCard({ minifigure, onSelect }) {
           <img 
             src={`http://localhost:8080/uploads/${minifigure.photoFilename}`} 
             alt={minifigure.name} 
-            className="h-full w-full object-cover" 
+            className="h-full w-full object-contain" 
           />
         ) : (
           <span className="text-gray-400 text-sm">No Image</span>
