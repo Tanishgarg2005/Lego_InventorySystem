@@ -118,7 +118,7 @@ function AddMinifigureForm({ minifigureToEdit, onFormSubmit, onCancel }) {
                   <select name="theme" value={formData.theme.id} onChange={handleChange} className={inputStyle}>{themes.map(theme => ( <option key={theme.id} value={theme.id}>{theme.name}</option> ))}</select>
                   <button type="button" onClick={() => setIsAddingNewTheme(true)} className="bg-blue-500 text-white font-bold p-2 rounded-lg">+</button>
                 </div>
-              )}
+              )}git add .
             </div>
             <div><label className="block text-slate-600 text-sm font-semibold mb-1">Personal Number</label><input name="personalNumber" value={formData.personalNumber} onChange={handleChange} placeholder="e.g., SW001" required className={inputStyle} /></div>
             
