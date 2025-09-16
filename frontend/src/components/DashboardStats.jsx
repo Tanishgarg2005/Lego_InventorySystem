@@ -1,4 +1,4 @@
-// frontend/src/components/DashboardStats.jsx
+
 
 function DashboardStats({ minifigures }) {
   const totalFigures = minifigures.length;

@@ -24,12 +24,20 @@ public class MinifigureController {
     @GetMapping
     public List<Minifigure> getAllMinifigures(
             @RequestParam(required = false) String sortBy,
-            @RequestParam(required = false) String theme
-    ) {
-        // ... (this method remains the same)
+            @RequestParam(required = false) String theme) {
+
         Sort sort = Sort.by("name");
-        if ("valueDesc".equals(sortBy)) { sort = Sort.by("estimatedValue").descending(); } 
-        else if ("valueAsc".equals(sortBy)) { sort = Sort.by("estimatedValue").ascending(); }
+
+        if ("valueDesc".equals(sortBy)) {
+            sort = Sort.by("estimatedValue").descending();
+        } else if ("valueAsc".equals(sortBy)) {
+            sort = Sort.by("estimatedValue").ascending();
+        } else if ("dateDesc".equals(sortBy)) {
+            sort = Sort.by("releaseDate").descending();
+        } else if ("dateAsc".equals(sortBy)) {
+            sort = Sort.by("releaseDate").ascending();
+        }
+
         if (theme != null && !theme.isEmpty()) {
             return minifigureRepository.findByThemeNameContainingIgnoreCase(theme, sort);
         } else {
@@ -42,34 +50,31 @@ public class MinifigureController {
         return minifigureRepository.save(minifigure);
     }
 
-    // --- THIS IS THE METHOD TO UPDATE ---
     @PutMapping("/{id}")
-    public ResponseEntity<Minifigure> updateMinifigure(@PathVariable Integer id, @RequestBody Minifigure updatedMinifigure) {
+    public ResponseEntity<Minifigure> updateMinifigure(@PathVariable Integer id,
+            @RequestBody Minifigure updatedMinifigure) {
         return minifigureRepository.findById(id)
-            .map(existingMinifigure -> {
-                existingMinifigure.setName(updatedMinifigure.getName());
-                existingMinifigure.setPersonalNumber(updatedMinifigure.getPersonalNumber());
-                existingMinifigure.setTheme(updatedMinifigure.getTheme());
-                existingMinifigure.setReleaseDate(updatedMinifigure.getReleaseDate());
-                existingMinifigure.setBricklinkNumber(updatedMinifigure.getBricklinkNumber());
-                existingMinifigure.setEstimatedValue(updatedMinifigure.getEstimatedValue());
-                existingMinifigure.setPurchaseDate(updatedMinifigure.getPurchaseDate());
-                existingMinifigure.setPurchasePrice(updatedMinifigure.getPurchasePrice());
-                existingMinifigure.setShippingCost(updatedMinifigure.getShippingCost());
-                existingMinifigure.setNotes(updatedMinifigure.getNotes());
-                
-                // --- ADD THIS LINE TO FIX THE BUG ---
-                existingMinifigure.setQuantity(updatedMinifigure.getQuantity());
-                
-                Minifigure savedMinifigure = minifigureRepository.save(existingMinifigure);
-                return ResponseEntity.ok(savedMinifigure);
-            })
-            .orElse(ResponseEntity.notFound().build());
+                .map(existingMinifigure -> {
+                    existingMinifigure.setName(updatedMinifigure.getName());
+                    existingMinifigure.setPersonalNumber(updatedMinifigure.getPersonalNumber());
+                    existingMinifigure.setTheme(updatedMinifigure.getTheme());
+                    existingMinifigure.setReleaseDate(updatedMinifigure.getReleaseDate());
+                    existingMinifigure.setBricklinkNumber(updatedMinifigure.getBricklinkNumber());
+                    existingMinifigure.setEstimatedValue(updatedMinifigure.getEstimatedValue());
+                    existingMinifigure.setPurchaseDate(updatedMinifigure.getPurchaseDate());
+                    existingMinifigure.setPurchasePrice(updatedMinifigure.getPurchasePrice());
+                    existingMinifigure.setShippingCost(updatedMinifigure.getShippingCost());
+                    existingMinifigure.setNotes(updatedMinifigure.getNotes());
+                    existingMinifigure.setQuantity(updatedMinifigure.getQuantity());
+
+                    Minifigure savedMinifigure = minifigureRepository.save(existingMinifigure);
+                    return ResponseEntity.ok(savedMinifigure);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMinifigure(@PathVariable Integer id) {
-        // ... (this method remains the same)
         return minifigureRepository.findById(id).map(minifigure -> {
             if (minifigure.getPhotoFilename() != null && !minifigure.getPhotoFilename().isEmpty()) {
                 storageService.delete(minifigure.getPhotoFilename());

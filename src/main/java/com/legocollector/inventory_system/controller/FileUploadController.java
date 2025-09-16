@@ -1,4 +1,4 @@
-// src/main/java/com/legocollector/inventorysystem/controller/FileUploadController.java
+
 package com.legocollector.inventory_system.controller;
 
 import com.legocollector.inventory_system.service.FileStorageService;
@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/files")
-@CrossOrigin(origins = "http://localhost:5173") // Or your frontend's port
+@CrossOrigin(origins = "http://localhost:5173")
 public class FileUploadController {
 
     @Autowired

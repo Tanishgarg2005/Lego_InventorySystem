@@ -28,8 +28,6 @@ public class Minifigure {
     @JoinColumn(name = "theme_id")
     private Theme theme;
 
-    // --- Getters and Setters ---
-
     public Integer getId() {
         return id;
     }
@@ -125,11 +123,12 @@ public class Minifigure {
     public void setTheme(Theme theme) {
         this.theme = theme;
     }
-    public int getQuantity() {
-    return quantity;
-}
 
-public void setQuantity(int quantity) {
-    this.quantity = quantity;
-}
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
